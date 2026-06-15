@@ -8,6 +8,7 @@ import RoundResultScreen from './components/screens/RoundResultScreen';
 import GameOverScreen from './components/screens/GameOverScreen';
 import LeaderboardScreen from './components/screens/LeaderboardScreen';
 import WordBankManagerScreen from './components/screens/WordBankManagerScreen';
+import SettingsScreen from './components/screens/SettingsScreen';
 
 export default function App() {
   const screen = useGameStore((s) => s.screen);
@@ -23,6 +24,7 @@ export default function App() {
       {screen === 'game-over' && <GameOverScreen />}
       {screen === 'leaderboard' && <LeaderboardScreen />}
       {screen === 'word-bank-manager' && <WordBankManagerScreen />}
+      {screen === 'settings' && <SettingsScreen />}
     </div>
   );
 }

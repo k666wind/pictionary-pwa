@@ -70,7 +70,8 @@ export type Screen =
   | 'game-over'
   | 'leaderboard'
   | 'word-bank-manager'
-  | 'add-word';
+  | 'add-word'
+  | 'settings';
 
 export interface LeaderboardEntry {
   id: string;

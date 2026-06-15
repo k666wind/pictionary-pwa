@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 import type { Difficulty, Category } from '../../types';
-import { TEAM_COLORS, CATEGORY_EMOJIS, generateId } from '../../utils/game';
+import { TEAM_COLORS, CATEGORY_EMOJIS, generateId, filterWords } from '../../utils/game';
 import { BUILT_IN_WORD_BANKS } from '../../data/wordBanks';
 
 const CATEGORIES: { id: Category; label: string }[] = [
@@ -183,7 +183,23 @@ export default function SetupScreen() {
 
       <div style={{ flex: 1 }} />
 
-      <button className="btn btn-primary btn-lg btn-block" onClick={handleStart}>
+      {/* Word count preview */}
+      {(() => {
+        const allBanksLocal = [...BUILT_IN_WORD_BANKS, ...customWordBanks];
+        const selected = allBanksLocal.filter((b) => settings.wordBankIds.includes(b.id));
+        const count = filterWords(selected, settings.difficulty, settings.categories as import('../../types').Category[]).length;
+        return (
+          <div className="dashed-card" style={{ textAlign: 'center', padding: '10px 16px' }}>
+            <p style={{ fontWeight: 700, fontSize: '0.9rem', color: count > 0 ? 'var(--green)' : 'var(--coral)' }}>
+              {count > 0
+                ? `✅ ${count} 題可用 words available`
+                : '⚠️ 未有題目符合條件，請調整設定'}
+            </p>
+          </div>
+        );
+      })()}
+
+      <button className="btn btn-primary btn-lg btn-block" onClick={handleStart} disabled={false}>
         🎨 開始！Start!
       </button>
     </div>

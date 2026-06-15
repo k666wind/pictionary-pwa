@@ -19,6 +19,12 @@ interface GameState {
   // Navigation
   screen: Screen;
 
+  // Preferences
+  soundEnabled: boolean;
+  vibrationEnabled: boolean;
+  setSoundEnabled: (v: boolean) => void;
+  setVibrationEnabled: (v: boolean) => void;
+
   // Settings
   settings: GameSettings;
 
@@ -88,6 +94,8 @@ export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
       screen: 'home',
+      soundEnabled: true,
+      vibrationEnabled: true,
       settings: DEFAULT_SETTINGS,
       players: [],
       teams: [],
@@ -100,6 +108,9 @@ export const useGameStore = create<GameState>()(
       isTimerRunning: false,
       timeLeft: DEFAULT_SETTINGS.timerSeconds,
       leaderboard: getLeaderboard(),
+
+      setSoundEnabled: (v) => set({ soundEnabled: v }),
+      setVibrationEnabled: (v) => set({ vibrationEnabled: v }),
 
       setScreen: (screen) => set({ screen }),
 
@@ -326,6 +337,8 @@ export const useGameStore = create<GameState>()(
         leaderboard: s.leaderboard,
         customWordBanks: s.customWordBanks,
         settings: s.settings,
+        soundEnabled: s.soundEnabled,
+        vibrationEnabled: s.vibrationEnabled,
       }),
     }
   )
